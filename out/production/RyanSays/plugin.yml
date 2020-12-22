@@ -1,9 +1,0 @@
-main: com.ryan.ryansays.Main
-name: RyanSays
-version: 1.0
-author: Ryan
-api-version: 1.16
-
-commands:
-  ryansays:
-    description: Starts a game of Ryan Says.
