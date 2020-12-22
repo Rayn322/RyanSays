@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="RyanSays:jar">
+    <output-path>$USER_HOME$/Documents/MinecraftServers/Paper-1.16.4/plugins</output-path>
+    <root id="archive" name="RyanSays.jar">
+      <element id="module-output" name="RyanSays" />
+    </root>
+  </artifact>
+</component>
