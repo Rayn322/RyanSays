@@ -13,14 +13,12 @@ public class Main extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        super.onEnable();
         getCommand("ryansays").setTabCompleter(new TabAutocomplete());
         getServer().getPluginManager().registerEvents(game, this);
     }
     
     @Override
     public void onDisable() {
-        super.onDisable();
     }
     
     @Override
