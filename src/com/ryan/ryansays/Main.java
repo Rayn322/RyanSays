@@ -9,7 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
     
-    public final Game game = new Game(this);
+    public final Game game = new Game();
+    public final DrinkPotions drinkPotions = new DrinkPotions(this);
     
     @Override
     public void onEnable() {
