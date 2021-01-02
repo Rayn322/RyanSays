@@ -17,21 +17,23 @@ import org.bukkit.potion.PotionType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class DrinkPotions implements Listener {
     
+    private static final Random random = new Random();
+    public static PotionType randomPotion;
     private static Main plugin;
+    
     public DrinkPotions(Main pl) {
         plugin = pl;
     }
     
-    
-    private static boolean drinkingPotions = false;
-    
     public static void givePotions(World world) {
-        startTimer();
-        drinkingPotions = true;
+        GameTimer.startTimer();
+        Game.isPlaying = true;
         List<ItemStack> potions = getRandomPotions();
+        Bukkit.getServer().broadcastMessage("Drink a " + randomPotion.getEffectType().getName() + " potion.");
         for (int i = 0; i < world.getPlayers().size(); i++) {
             Player playerI = world.getPlayers().get(i);
             PlayerInventory inventory = playerI.getInventory();
@@ -63,22 +65,23 @@ public class DrinkPotions implements Listener {
             potions.add(potion);
         }
         
+        int index = random.nextInt(potionTypes.size());
+        randomPotion = potionTypes.get(index);
+        System.out.println("A " + randomPotion.name() + " potion was selected");
+        
         Collections.shuffle(potions);
         return potions;
     }
     
-    private static void startTimer() {
-        Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.getServer().broadcastMessage(ChatColor.RED + "Time is up!"), 200);
-        if (drinkingPotions) drinkingPotions = false;
-    }
-    
     @EventHandler
     public void onPotionDrink(EntityPotionEffectEvent event) {
-        if (event.getEntity() instanceof Player && drinkingPotions) {
+        if (event.getEntity() instanceof Player && Game.isPlaying && event.getCause() == EntityPotionEffectEvent.Cause.POTION_DRINK
+                && event.getNewEffect().getType().equals(randomPotion.getEffectType())) {
             Player player = (Player) event.getEntity();
-            player.getInventory().clear();
-            player.getActivePotionEffects().clear();
+            Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " has completed the activity!");
+            PlayerManager.hasCompletedObjective.replace(player.getUniqueId(), true);
+            event.setCancelled(true);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().clear(), 5);
         }
     }
-    
 }

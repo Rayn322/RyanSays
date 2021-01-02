@@ -10,6 +10,7 @@ import java.util.Random;
 public class Game implements Listener {
     
     private static final Random random = new Random();
+    public static boolean isPlaying = false;
     
     public void startActivity(World world, Server server) {
         switch (randomActivity()) {
