@@ -30,6 +30,7 @@ public class GameTimer {
                 player.sendMessage(ChatColor.RED + "You didn't complete the activity!");
             }
         }
+        Game.isPlaying = false;
     }
     
 }

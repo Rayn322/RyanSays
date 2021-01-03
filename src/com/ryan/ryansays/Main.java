@@ -12,6 +12,8 @@ public class Main extends JavaPlugin {
     public final Game game = new Game();
     public final DrinkPotions drinkPotions = new DrinkPotions(this);
     public final GameTimer gameTimer = new GameTimer(this);
+    public static Location gameSpawn = null;
+    public static boolean setSpawn = false;
     
     @Override
     public void onEnable() {
@@ -29,12 +31,10 @@ public class Main extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (label.equalsIgnoreCase("ryansays") && sender instanceof Player && args.length > 0) {
             Player player = (Player) sender;
-            if (args[0].equalsIgnoreCase("start")) {
+            if (args[0].equalsIgnoreCase("start") && !Game.isPlaying && setSpawn) {
                 startGame(player);
             } else if (args[0].equalsIgnoreCase("stop")) {
                 stopGame();
-            } else {
-                sender.sendMessage("what");
             }
         } else {
             sender.sendMessage(ChatColor.RED + "Please use /ryansays start/stop");
@@ -44,13 +44,12 @@ public class Main extends JavaPlugin {
     
     private void startGame(Player player) {
         player.getServer().broadcastMessage(ChatColor.YELLOW + player.getDisplayName() + " has started a game of Ryan Says!");
-        Location gameSpawn = new Location(player.getWorld(), 0.5, 31, 0.5);
         
         for (int i = 0; i < player.getWorld().getPlayers().size(); i++) {
             Player playerI = player.getWorld().getPlayers().get(i);
             playerI.teleport(gameSpawn);
             PlayerManager.hasCompletedObjective.clear();
-            PlayerManager.hasCompletedObjective.put(playerI.getUniqueId(), false);
+            PlayerManager.addPlayer(playerI);
         }
         
         game.startActivity(player.getWorld(), player.getServer());
@@ -58,6 +57,7 @@ public class Main extends JavaPlugin {
     
     private void stopGame() {
         getServer().broadcastMessage(ChatColor.RED + "The game has ended!");
+        Game.isPlaying = false;
     }
     
     public Main getPlugin() {
