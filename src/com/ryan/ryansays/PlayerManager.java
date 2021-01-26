@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class PlayerManager implements Listener {
     
-    public static HashMap<UUID, Boolean> hasCompletedObjective = new HashMap<UUID, Boolean>();
+    public static final HashMap<UUID, Boolean> hasCompletedObjective = new HashMap<>();
     
     public static void addPlayer(Player player) {
         if (!hasCompletedObjective.containsKey(player.getUniqueId())) {
