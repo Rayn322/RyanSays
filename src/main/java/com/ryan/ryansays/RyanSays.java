@@ -2,6 +2,8 @@ package com.ryan.ryansays;
 
 import com.ryan.ryansays.activities.DrinkPotion;
 import com.ryan.ryansays.activities.Jump;
+import com.ryan.ryansays.listeners.PlayerEvents;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RyanSays extends JavaPlugin {
@@ -15,6 +17,7 @@ public class RyanSays extends JavaPlugin {
     @Override
     public void onEnable() {
         registerListeners();
+        Game.setGameSpawn(Bukkit.getWorld("ryansays"));
     }
     
     @Override
@@ -24,5 +27,6 @@ public class RyanSays extends JavaPlugin {
     public void registerListeners() {
         getServer().getPluginManager().registerEvents(new Jump(), this);
         getServer().getPluginManager().registerEvents(new DrinkPotion(), this);
+        getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
     }
 }

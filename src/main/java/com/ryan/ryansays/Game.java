@@ -1,5 +1,6 @@
 package com.ryan.ryansays;
 
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -9,6 +10,7 @@ public class Game {
     
     public static boolean hasStarted = false;
     public static World world;
+    public static Location gameSpawn;
     private static final ArrayList<Player> playersPlaying = new ArrayList<>();
     private static final ArrayList<Player> playersNotFinished = new ArrayList<>();
     private static final ArrayList<Player> playersCompletedTask = new ArrayList<>();
@@ -39,5 +41,10 @@ public class Game {
     
     public static ArrayList<Player> getPlayersPlaying() {
         return playersPlaying;
+    }
+    
+    public static void setGameSpawn(World newWorld) {
+        world = newWorld;
+        gameSpawn = new Location(newWorld, 0.5, 31, 0.5);
     }
 }

@@ -1,4 +1,4 @@
-main: com.ryan.ryansays.Main
+main: com.ryan.ryansays.RyanSays
 name: RyanSays
 version: 1.0
 author: Ryan

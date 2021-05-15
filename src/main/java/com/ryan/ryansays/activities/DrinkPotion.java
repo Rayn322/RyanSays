@@ -1,7 +1,6 @@
 package com.ryan.ryansays.activities;
 
 import com.ryan.ryansays.Game;
-import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,8 +22,8 @@ public class DrinkPotion extends Activity {
     
     @Override
     public void setup() {
-        super.setup();
         activityType = ActivityType.DRINKPOTION;
+        instructions = "Drink the " + randomPotionType.getEffectType().getName() + " potion!";
         System.out.println(ChatColor.GREEN + "drink potion setup called");
         
         possiblePotions.add(PotionType.SPEED);
@@ -39,8 +38,7 @@ public class DrinkPotion extends Activity {
         
         selectPotion();
         givePotions();
-        // TODO: make method to display instructions as a title
-        Game.world.sendMessage(Component.text(ChatColor.GREEN + "Drink the " + randomPotionType.getEffectType().getName() + " potion!"));
+        super.setup();
     }
     
     @Override

@@ -8,9 +8,10 @@ public class Jump extends Activity {
     
     @Override
     public void setup() {
-        super.setup();
         activityType = ActivityType.JUMP;
+        instructions = "Jump in the air!";
         System.out.println(ChatColor.GREEN + "jump setup called");
+        super.setup();
     }
     
     @Override
