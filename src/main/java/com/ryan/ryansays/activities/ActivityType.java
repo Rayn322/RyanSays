@@ -1,8 +1,8 @@
 package com.ryan.ryansays.activities;
 
 public enum ActivityType {
-    DRINKPOTION
-//    JUMP,
+    DRINKPOTION,
+    JUMP
 //    JUMPOFF,
 //    LASTONESTANDING,
 //    PLACEBLOCK,
@@ -10,3 +10,4 @@ public enum ActivityType {
 //    STANDSTILL,
 //    TYPECHARACTER
 }
+
