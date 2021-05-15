@@ -1,12 +1,15 @@
-package com.ryan.ryansays;
+package com.ryan.ryansays.activities;
 
+import com.ryan.ryansays.Game;
+import com.ryan.ryansays.GameTimer;
+import com.ryan.ryansays.Main;
+import com.ryan.ryansays.PlayerManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -19,29 +22,38 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class DrinkPotions implements Listener {
+public class DrinkPotions implements Activity {
     
     private static final Random random = new Random();
     public static PotionType randomPotion;
-    private static Main plugin;
     
-    public DrinkPotions(Main pl) {
-        plugin = pl;
-    }
-    
-    public static void givePotions(World world) {
+    public void setup() {
         GameTimer.startTimer();
         Game.isPlaying = true;
         List<ItemStack> potions = getRandomPotions();
-        Bukkit.getServer().broadcastMessage("Drink a " + randomPotion.getEffectType().getName() + " potion.");
-        for (int i = 0; i < world.getPlayers().size(); i++) {
-            Player playerI = world.getPlayers().get(i);
+        
+        Bukkit.getServer().sendMessage(Component.text("Drink a " + randomPotion.getEffectType().getName() + " potion."));
+        
+        
+        
+        for (int i = 0; i < Game.world.getPlayers().size(); i++) {
+            Player playerI = Game.world.getPlayers().get(i);
             PlayerInventory inventory = playerI.getInventory();
             inventory.clear();
             for (int j = 0; j < potions.size(); j++) {
                 inventory.setItem(j, potions.get(j));
             }
         }
+    }
+    
+    @Override
+    public void onTaskComplete() {
+    
+    }
+    
+    @Override
+    public void cleanup() {
+    
     }
     
     private static List<ItemStack> getRandomPotions() {
@@ -78,10 +90,11 @@ public class DrinkPotions implements Listener {
         if (event.getEntity() instanceof Player && Game.isPlaying && event.getCause() == EntityPotionEffectEvent.Cause.POTION_DRINK
                 && event.getNewEffect().getType().equals(randomPotion.getEffectType())) {
             Player player = (Player) event.getEntity();
-            Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " has completed the activity!");
-            PlayerManager.hasCompletedObjective.replace(player.getUniqueId(), true);
+            
+            Bukkit.getServer().sendMessage(Component.text(ChatColor.GREEN + player.getName() + " has completed the activity!"));
+            PlayerManager.hasCompletedObjective.replace(player, true);
             event.setCancelled(true);
-            Bukkit.getScheduler().runTaskLater(plugin, () -> player.getInventory().clear(), 5);
+            Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> player.getInventory().clear(), 5);
         }
     }
 }

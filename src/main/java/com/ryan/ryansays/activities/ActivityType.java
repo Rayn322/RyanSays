@@ -1,6 +1,6 @@
-package com.ryan.ryansays;
+package com.ryan.ryansays.activities;
 
-public enum Activity {
+public enum ActivityType {
     DRINKPOTION
 //    JUMP,
 //    JUMPOFF,
