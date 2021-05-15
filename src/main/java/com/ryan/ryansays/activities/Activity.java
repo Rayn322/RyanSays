@@ -15,6 +15,11 @@ public abstract class Activity implements Listener {
         isPlaying = true;
     }
     
+    public void cleanup() {
+        isPlaying = false;
+        Game.resetLists();
+    }
+    
     public void onTaskComplete(Player player) {
         if (Game.hasNotCompletedTask(player)) {
             Game.playerCompletedTask(player);
@@ -31,10 +36,5 @@ public abstract class Activity implements Listener {
         
         player.getInventory().clear();
         player.getServer().sendMessage(Component.text(ChatColor.GOLD + player.getName() + ChatColor.DARK_RED + " has failed the task!"));
-    }
-    
-    public void cleanup() {
-        isPlaying = false;
-        Game.resetLists();
     }
 }
