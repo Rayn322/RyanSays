@@ -1,4 +1,4 @@
-package com.ryan.ryansays.activities;
+package com.ryan.ryansays.activity;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import org.bukkit.ChatColor;

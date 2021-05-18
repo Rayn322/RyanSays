@@ -1,6 +1,6 @@
-package com.ryan.ryansays.activities;
+package com.ryan.ryansays.activity;
 
-import com.ryan.ryansays.Game;
+import com.ryan.ryansays.gameplay.Game;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,7 +23,6 @@ public class DrinkPotion extends Activity {
     @Override
     public void setup() {
         activityType = ActivityType.DRINKPOTION;
-        instructions = "Drink the " + randomPotionType.getEffectType().getName() + " potion!";
         System.out.println(ChatColor.GREEN + "drink potion setup called");
         
         possiblePotions.add(PotionType.SPEED);
@@ -52,6 +51,7 @@ public class DrinkPotion extends Activity {
         Random random = new Random();
         int i = random.nextInt(possiblePotions.size());
         randomPotionType = possiblePotions.get(i);
+        instructions = "Drink the " + randomPotionType.getEffectType().getName() + " potion!";
     }
     
     public void givePotions() {
@@ -75,11 +75,14 @@ public class DrinkPotion extends Activity {
         if (isPlaying && event.getItem().getType() == Material.POTION) {
             PotionMeta potionMeta = (PotionMeta) event.getItem().getItemMeta();
             event.setCancelled(true);
+//            event.getPlayer().removePotionEffect(randomPotionType.getEffectType());
             
             if (potionMeta.getBasePotionData().getType() == randomPotionType) {
                 onTaskComplete(event.getPlayer());
+                System.out.println("correct potion");
             } else {
                 onTaskFail(event.getPlayer());
+                System.out.println("incorrect potion");
             }
         }
     }

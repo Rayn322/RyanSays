@@ -1,6 +1,6 @@
-package com.ryan.ryansays.listeners;
+package com.ryan.ryansays.listener;
 
-import com.ryan.ryansays.Game;
+import com.ryan.ryansays.gameplay.Game;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

@@ -1,8 +1,10 @@
 package com.ryan.ryansays;
 
-import com.ryan.ryansays.activities.DrinkPotion;
-import com.ryan.ryansays.activities.Jump;
-import com.ryan.ryansays.listeners.PlayerEvents;
+import com.ryan.ryansays.activity.ActivityRandomizer;
+import com.ryan.ryansays.activity.ActivityType;
+import com.ryan.ryansays.command.StartCommand;
+import com.ryan.ryansays.gameplay.Game;
+import com.ryan.ryansays.listener.PlayerEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,17 +18,21 @@ public class RyanSays extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        registerListeners();
+        registerListenersAndCommands();
         Game.setGameSpawn(Bukkit.getWorld("ryansays"));
+        
+        plugin = this;
     }
     
     @Override
     public void onDisable() {
     }
     
-    public void registerListeners() {
-        getServer().getPluginManager().registerEvents(new Jump(), this);
-        getServer().getPluginManager().registerEvents(new DrinkPotion(), this);
+    public void registerListenersAndCommands() {
+        getServer().getPluginManager().registerEvents(ActivityRandomizer.getActivity(ActivityType.JUMP), this);
+        getServer().getPluginManager().registerEvents(ActivityRandomizer.getActivity(ActivityType.DRINKPOTION), this);
         getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
+        
+        getCommand("ryansays").setExecutor(new StartCommand());
     }
 }

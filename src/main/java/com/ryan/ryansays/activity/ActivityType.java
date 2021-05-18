@@ -1,4 +1,4 @@
-package com.ryan.ryansays.activities;
+package com.ryan.ryansays.activity;
 
 public enum ActivityType {
     DRINKPOTION,
