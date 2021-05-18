@@ -69,7 +69,7 @@ public class Game {
             completed = NameUtils.getColoredName(playersCompletedTask.get(0), ChatColor.DARK_GREEN) + " has completed the task!";
         }
         
-        if (!playersFailedTask.isEmpty() && playersFailedTask.size() > 1) {
+        if (playersFailedTask.size() > 1) {
             failed = NameUtils.commaSeparate(playersFailedTask, ChatColor.DARK_RED) + " have failed the task";
         } else if (playersFailedTask.size() == 1) {
             failed = NameUtils.getColoredName(playersFailedTask.get(0), ChatColor.DARK_RED) + " has failed the task!";
